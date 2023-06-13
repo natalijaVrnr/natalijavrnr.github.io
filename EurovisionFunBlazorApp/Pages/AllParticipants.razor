@@ -1,0 +1,282 @@
+﻿@page "/participants"
+
+<PageTitle>All participants</PageTitle>
+
+@using EurovisionFunBlazorApp.Data
+@using Microsoft.AspNetCore.Components
+@using WebScraper_ClassLibrary
+@using FunctionApp_DataAccess
+@inject HttpClient httpClient
+
+<div class="page-container">
+    <h1>All Eurovision Song Contest</h1>
+
+    <p>Here you can find all the participants of Eurovision Song Contest from 2008 to 2023</p>
+
+    <div>
+        @if (filteredParticipants != null)
+        {
+            <label class="select-data" id="checkbox_qualified" for="checkbox_qualified">Only qualified for GrandFinal</label>
+            <input type="checkbox" @onchange="eventArgs => { UpdateQualified(eventArgs.Value); }" />
+
+            <label class="select-data" id="select_year" for="select_year">Year</label>
+            <select @onchange="eventArgs => { UpdateSelectedYear(eventArgs.Value); }">
+                @foreach (var option in yearOptions)
+                {
+                    <option value="@option">@option</option>
+                }
+            </select>
+
+            <label class="select-data" id="search_country">Search country</label>
+            <input type="text" @oninput="eventArgs => { SearchCountry(eventArgs.Value); }"/>
+        }
+    </div>
+
+
+    <div class="table-container">
+        @if (filteredParticipants == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Year
+                            @if (GetSortArrowClass(0) == "down")
+                            {
+                                <span class="sort-arrow sort-arrow-down" @onclick="() => ChangeSortingProperties(0, -1)"></span>
+                            }
+                            else if (GetSortArrowClass(0) == "up")
+                            {
+                                <span class="sort-arrow sort-arrow-up" @onclick="() => ChangeSortingProperties(0, 1)"></span>
+                            }
+                            else
+                            {
+                                <span class="sort-arrow sort-arrow-up" @onclick="() => ChangeSortingProperties(0, 1)"></span>
+                                <span class="sort-arrow sort-arrow-down" @onclick="() => ChangeSortingProperties(0, -1)"></span>
+                            }
+
+                        </th>
+                        <th>
+                            Country
+                            @if (GetSortArrowClass(1) == "down")
+                            {
+                                <span class="sort-arrow sort-arrow-down" @onclick="() => ChangeSortingProperties(1, -1)"></span>
+                            }
+                            else if (GetSortArrowClass(1) == "up")
+                            {
+                                <span class="sort-arrow sort-arrow-up" @onclick="() => ChangeSortingProperties(1, 1)"></span>
+                            }
+                            else
+                            {
+                                <span class="sort-arrow sort-arrow-up" @onclick="() => ChangeSortingProperties(1, 1)"></span>
+                                <span class="sort-arrow sort-arrow-down" @onclick="() => ChangeSortingProperties(1, -1)"></span>
+                            }
+                        </th>
+                        <th>
+                            Artist
+                            @if (GetSortArrowClass(2) == "down")
+                            {
+                                <span class="sort-arrow sort-arrow-down" @onclick="async () => await ChangeSortingProperties(2, -1)"></span>
+                            }
+                            else if (GetSortArrowClass(2) == "up")
+                            {
+                                <span class="sort-arrow sort-arrow-up" @onclick="async () => await ChangeSortingProperties(2, 1)"></span>
+                            }
+                            else
+                            {
+                                <span class="sort-arrow sort-arrow-up" @onclick="async () => await ChangeSortingProperties(2, 1)"></span>
+                                <span class="sort-arrow sort-arrow-down" @onclick="async () => await ChangeSortingProperties(2, -1)"></span>
+                            }
+                        </th>
+                        <th>
+                            Song
+                            @if (GetSortArrowClass(3) == "down")
+                            {
+                                <span class="sort-arrow sort-arrow-down" @onclick="async () => await ChangeSortingProperties(3, -1)"></span>
+                            }
+                            else if (GetSortArrowClass(3) == "up")
+                            {
+                                <span class="sort-arrow sort-arrow-up" @onclick="async () => await ChangeSortingProperties(3, 1)"></span>
+                            }
+                            else
+                            {
+                                <span class="sort-arrow sort-arrow-up" @onclick="async () => await ChangeSortingProperties(3, 1)"></span>
+                                <span class="sort-arrow sort-arrow-down" @onclick="async () => await ChangeSortingProperties(3, -1)"></span>
+                            }
+                        </th>
+                        <th>
+                            Qualified for Grand Final
+                            @if (GetSortArrowClass(4) == "down")
+                            {
+                                <span class="sort-arrow sort-arrow-down" @onclick="async () => await ChangeSortingProperties(4, -1)"></span>
+                            }
+                            else if (GetSortArrowClass(4) == "up")
+                            {
+                                <span class="sort-arrow sort-arrow-up" @onclick="async () => await ChangeSortingProperties(4, 1)"></span>
+                            }
+                            else
+                            {
+                                <span class="sort-arrow sort-arrow-up" @onclick="async () => await ChangeSortingProperties(4, 1)"></span>
+                                <span class="sort-arrow sort-arrow-down" @onclick="async () => await ChangeSortingProperties(4, -1)"></span>
+                            }
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in filteredParticipants)
+                    {
+                        <tr>
+                            <td>@p.YearOfParticipating</td>
+                            <td>@p.Country</td>
+                            <td>@p.Artist</td>
+                            <td>@p.Song</td>
+                            <td>@(p.QualifiedForFinal ? "Yes" : "No")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+
+
+@code {
+    private List<ParticipantModel> allParticipants;
+    private List<ParticipantModel> filteredParticipants;
+
+    private bool onlyQualified = false;
+    private string selectedYear = "All";
+    private string searchQuery = "";
+
+    private string[] sortingProperties = new string[5];
+
+    private List<string> yearOptions = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        allParticipants = await httpClient.GetFromJsonAsync<List<ParticipantModel>>("api/getallparticipants");
+        filteredParticipants = allParticipants;
+
+        AddYearOptions(yearOptions);
+        PopulateSortingProperties(sortingProperties);
+        StateHasChanged();
+    }
+
+    private void UpdateQualified(object obj)
+    {
+        onlyQualified = (bool)obj;
+        FilterData();
+    }
+
+    private void UpdateSelectedYear(object obj)
+    {
+        selectedYear = obj.ToString();
+        FilterData();
+    }
+
+    private void SearchCountry(object obj)
+    {
+        searchQuery = obj.ToString();
+        FilterData();
+    }
+
+    private async Task FilterData()
+    {
+        filteredParticipants = allParticipants;
+
+        if (onlyQualified)
+        {
+            filteredParticipants = allParticipants.Where(p => p.QualifiedForFinal == true).ToList();
+        }
+        if (selectedYear != "All")
+        {
+            filteredParticipants = filteredParticipants.Where(p => p.YearOfParticipating == Int32.Parse(selectedYear)).ToList();
+        }
+        if (searchQuery != "")
+        {
+            filteredParticipants = filteredParticipants.Where(p => p.Country.ToLower().StartsWith(searchQuery.ToLower())).ToList();
+        }
+        //else
+        //{
+        //    if (onlyQualified)
+        //    {
+        //        filteredParticipants = allParticipants.Where(p => p.QualifiedForFinal == true).ToList();
+        //    }
+        //    else if (selectedYear != "All")
+        //    {
+        //        filteredParticipants = allParticipants.Where(p => p.YearOfParticipating == Int32.Parse(selectedYear)).ToList();
+        //    }
+        //    else
+        //    {
+        //        filteredParticipants = allParticipants;
+        //    }
+        //}
+
+        StateHasChanged();
+    }
+
+    private async Task ChangeSortingProperties(int columnNumber, int orderBy)
+    {
+        sortingProperties[columnNumber] = (orderBy > 0) ? "asc" : "desc";
+
+        int defaultColNum = (columnNumber == 0) ? 1 : columnNumber;
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (i != 0 && i != defaultColNum) sortingProperties[i] = "null";
+        }
+
+        string orderByProperties = string.Join('x', sortingProperties);
+
+        try {
+
+            filteredParticipants = await httpClient.GetFromJsonAsync<List<ParticipantModel>>($"api/getallparticipantssorted/{orderByProperties}");
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
+
+    private static void AddYearOptions(List<string> yearOptions)
+    {
+        yearOptions.Add("All");
+
+        for (int i = 2008; i <= 2023; i++)
+        {
+            yearOptions.Add(i.ToString());
+        }
+    }
+
+    private static void PopulateSortingProperties(string[] sortingProperties)
+    {
+        sortingProperties[0] = "desc";
+        sortingProperties[1] = "asc";
+        sortingProperties[2] = "null";
+        sortingProperties[3] = "null";
+        sortingProperties[4] = "null";
+    }
+
+    private string GetSortArrowClass(int columnNumber)
+    {
+        if (sortingProperties[columnNumber] == "desc")
+        {
+            return "up";
+        }
+        else if (sortingProperties[columnNumber] == "asc")
+        {
+            return "down";
+        }
+        else if (sortingProperties[columnNumber] == "null")
+        {
+            return "both";
+        }
+
+        return "error";
+    }
+}

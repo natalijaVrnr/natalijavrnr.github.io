@@ -1,0 +1,65 @@
+﻿@page "/finalists"
+
+<PageTitle>Final participants</PageTitle>
+
+@using EurovisionFunBlazorApp.Data
+@using Microsoft.AspNetCore.Components
+@using WebScraper_ClassLibrary
+@using FunctionApp_DataAccess
+@inject HttpClient httpClient
+
+<div class="page-container">
+    <h1>All Eurovision Song Contest Finalists</h1>
+
+    <p>Here you can find all the finalists of Eurovision Song Contest from 2008 to 2023</p>
+
+    <div class="table-container">
+        @if (filteredFinalists == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Place</th>
+                        <th>Country</th>
+                        <th>Artist</th>
+                        <th>Song</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var f in filteredFinalists)
+                    {
+                        <tr style="font-weight: @(f.Place == 1 ? "bold; color: goldenrod" : "normal")">
+                            <td>@f.YearOfParticipating</td>
+                            <td>@f.Place</td>
+                            <td>@f.Country</td>
+                            <td>@f.Artist</td>
+                            <td>@f.Song</td>
+                            <td>@f.Score</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+
+
+@code {
+
+    private List<FinalistDataModel> allFinalists;
+    private List<FinalistDataModel> filteredFinalists;
+
+    protected override async Task OnInitializedAsync()
+    {
+        allFinalists = await httpClient.GetFromJsonAsync<List<FinalistDataModel>>("api/getallfinalists");
+        filteredFinalists = allFinalists;
+    }
+
+}
