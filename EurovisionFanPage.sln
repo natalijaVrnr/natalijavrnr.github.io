@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionApp_DataAccess", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EurovisionFunBlazorApp", "EurovisionFunBlazorApp\EurovisionFunBlazorApp.csproj", "{7D627152-913A-408D-9D61-A50B329C3EAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webscraper_ConsoleApp", "Webscraper_ConsoleApp\Webscraper_ConsoleApp.csproj", "{93DF23DE-C127-41D7-AE46-E4C1697185BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7D627152-913A-408D-9D61-A50B329C3EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D627152-913A-408D-9D61-A50B329C3EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D627152-913A-408D-9D61-A50B329C3EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93DF23DE-C127-41D7-AE46-E4C1697185BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93DF23DE-C127-41D7-AE46-E4C1697185BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93DF23DE-C127-41D7-AE46-E4C1697185BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93DF23DE-C127-41D7-AE46-E4C1697185BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
