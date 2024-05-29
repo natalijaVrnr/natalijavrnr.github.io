@@ -94,9 +94,5 @@ document.getElementById('toggle-mode').addEventListener('click', function() {
     toggleDarkMode();
 });
 
-window.addEventListener('popstate', function(event) {
-    initializeDarkMode();
-});
-
 // Initialize dark mode state on page load
 initializeDarkMode();

@@ -37,7 +37,8 @@ h5.dark-mode,
 h6.dark-mode, 
 p.dark-mode, 
 ol.dark-mode,
-.center-element a.dark-mode {
+.center-element a.dark-mode,
+.back-button a.darkmode {
     color: #EAD9FF;
 }
 
@@ -99,7 +100,8 @@ ol.dark-mode,
 }
 
 .center-element button,
-.toggle-button {
+.toggle-button,
+.back-button button {
     background-color: #6D3481;
     border-color: #6D3481;
     border-radius: .7rem;
@@ -107,10 +109,24 @@ ol.dark-mode,
     font-size: large;
 }
 
-.toggle-button-div-story {
+.center-element button:hover,
+.toggle-button:hover,
+.back-button button:hover {
+    cursor: pointer;
+}
+
+.toggle-button-div-story,
+.back-button {
     position: absolute;
     padding: .7rem;
+}
+
+.toggle-button-div-story {
     right: 0;
+}
+
+.back-button {
+    left: 0;
 }
 
 .toggle-button-div {
@@ -123,12 +139,14 @@ ol.dark-mode,
     padding: .7rem 3rem;
 }
 
-.toggle-button {
+.toggle-button,
+.back-button button {
     padding: .5rem;
 }
 
 .center-element button.dark-mode,
-.toggle-button.dark-mode {
+.toggle-button.dark-mode,
+.back-button button.dark-mode {
     background-color: #EAD9FF;
     border-color: #EAD9FF;
     border-radius: .7rem;
