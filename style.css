@@ -1,0 +1,502 @@
+:root {
+    --background-color-light: #EAD9FF;
+    --text-color-light: #6D3481;
+    --background-color-dark: #6D3481;
+    --text-color-dark: #EAD9FF;
+}
+
+body {
+    background-color: #EAD9FF;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+}
+
+body.dark-mode {
+    background-color: #6D3481;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+}
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6, 
+p, 
+ol,
+.center-element a {
+    color: #6D3481;
+}
+
+h1.dark-mode, 
+h2.dark-mode, 
+h3.dark-mode, 
+h4.dark-mode, 
+h5.dark-mode, 
+h6.dark-mode, 
+p.dark-mode, 
+ol.dark-mode,
+.center-element a.dark-mode {
+    color: #EAD9FF;
+}
+
+.set-width {
+    margin: 0 auto;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.flex-row img.dark-mode,
+.header-1 img.dark-mode,
+.header-2 img.dark-mode,
+.header-3 img.dark-mode,
+.header-4 img.dark-mode,
+.header-5 img.dark-mode,
+.column-1-1 img.dark-mode,
+.absolute-img.dark-mode,
+.bird-div img.dark-mode,
+.airplane-div img.dark-mode,
+.frame-img.dark-mode,
+.breakline-img.dark-mode,
+.row-6 img.dark-mode,
+.header-7 img.dark-mode,
+.column-7-1 img.dark-mode {
+    filter: grayscale(100%) invert(100%) sepia(100%) hue-rotate(220deg);
+}
+
+.center-element {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.center-element img {
+    width: 250px;
+}
+
+.other {
+    font-size: 2.5rem;
+    margin: 3rem;
+    text-align: center;
+}
+
+.my-path {
+    margin-top: 1.5rem;
+}
+
+.author-name {
+    font-size: 2.5rem;
+    margin: 3rem;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 2rem;
+}
+
+.center-element button,
+.toggle-button {
+    background-color: #6D3481;
+    border-color: #6D3481;
+    border-radius: .7rem;
+    color: white;
+    font-size: large;
+}
+
+.toggle-button-div-story {
+    position: absolute;
+    padding: .7rem;
+    right: 0;
+}
+
+.toggle-button-div {
+    position: absolute;
+    padding: .7rem;
+    right: 0;
+}
+
+.center-element button {
+    padding: .7rem 3rem;
+}
+
+.toggle-button {
+    padding: .5rem;
+}
+
+.center-element button.dark-mode,
+.toggle-button.dark-mode {
+    background-color: #EAD9FF;
+    border-color: #EAD9FF;
+    border-radius: .7rem;
+    color: #6D3481;
+    font-weight: bolder;
+    font-size: large;
+}
+
+.content-1, 
+.content-2, 
+.content-3,
+.content-4,
+.content-5,
+.content-6,
+.content-7 {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 4rem;
+}
+
+.header-1, 
+.header-2, 
+.header-3,
+.header-4,
+.header-5,
+.header-6,
+.header-7 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row-1, 
+.row-2, 
+.row-3,
+.row-4,
+.row-5,
+.row-7 {
+    display: flex;
+    justify-content:space-around;
+    position: relative;
+}
+
+.row-6 {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+}
+
+.content-1 .header-1 p,  
+.content-2 .header-2 p,
+.content-3 .header-3 p,
+.content-4 .header-4 p,
+.content-5 .header-5 p,
+.content-6 .header-6 p,
+.content-7 .header-7 p {
+    font-weight: 600;
+    text-align: center;
+}
+
+.content-2 .header-2 p {
+    font-weight: 600;
+    text-align: center;
+}
+
+.content-1 .row-1 p, 
+.content-2 .row-2 p,
+.content-3 .row-3 p,
+.content-4 .row-4 p,
+.content-5 .row-5 ol {
+    font-size: 1.5rem;
+    max-width: 386px;
+}
+
+.content-7 .row-7 p {
+    font-size: 1.5rem;
+}
+
+.column-1-1 img {
+    position: absolute;
+    width: 430px;
+    height: 185px;
+    z-index: 3000;
+}
+
+.content-2, 
+.content-3,
+.content-5,
+.content-7 {
+    margin-top: 7rem;
+}
+
+.content-4 {
+    margin-top: 4rem;
+}
+
+.content-6 {
+    margin-top: 8rem;
+}
+
+.absolute-img {
+    position: absolute;
+    height: 300px;
+    width: 30px;
+}
+
+.img-2-1 {
+    margin-right: 3rem;
+}
+
+.airplane-div,
+.bird-div {
+    text-align: right;
+}
+
+.column-2-1,
+.column-3-1,
+.column-4-1,
+.column-5-1 {
+    margin-right: 2rem;
+}
+
+.column-2-1 .relative-img {
+    height: 300px;
+}
+
+.row-4 .df {
+    width: 300px;
+}
+
+.column-5-1 {
+    position: relative;
+}
+
+.column-5-1 ol {
+    margin-top: 2.5rem;
+}
+
+.column-5-1 img {
+    position: absolute;
+}
+
+.row-5 {
+    margin-top: 1rem;
+}
+
+.row-6 p {
+    font-size: 1.5rem;
+}
+
+.email,
+.phone-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-6 img {
+    width: 80px;
+    margin-right: 1.5rem;
+}
+
+.header-3 .default {
+    display: inline-block;
+}
+
+.header-3 .media-900 {
+    display: none;
+}
+
+@media only screen and (max-width: 900px) {
+    .content-1,
+    .content-2,
+    .content-3,
+    .content-4,
+    .content-5,
+    .content-6,
+    .content-7 {
+        margin: 1rem 0;
+    }
+
+    
+    .content-1 {
+        margin-top: 4rem;
+    }
+
+    .row-1,
+    .row-2,
+    .row-3,
+    .row-4,
+    .row-5,
+    .row-7 {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: .5rem;
+    }
+
+    .header-1 p,
+    .header-2 p,
+    .header-3 p,
+    .header-4 p,
+    .header-5 p,
+    .header-6 p,
+    .header-7 p {
+        font-size: 1.25rem;
+        max-width: 150px;
+    }
+
+    .content-1 .row-1 p, 
+    .content-2 .row-2 p,
+    .content-3 .row-3 p,
+    .content-4 .row-4 p,
+    .content-5 .row-5 ol,
+    .content-6 .row-6 p,
+    .content-7 .row-7 p {
+        font-size: 1rem;
+        text-align: center;
+        max-width: 250px;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .content-6 .row-6 img {
+        width: 50px;
+    }
+
+    .header-3 .default {
+        display: none;
+    }
+
+    .header-3 .media-900 {
+        display: inline-block;
+    }
+
+    .column-1-1 img,
+    .absolute-img {
+        display: none;
+    }
+
+    .airplane-div {
+        text-align: left;
+    }
+
+    .column-3-2 img,
+    .column-1-2 img,
+    .relative-img {
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .header-2 p {
+        margin-right: 0;
+    }
+
+    .header-2 img {
+        width: 35px;
+    }
+
+    .relative-img {
+        margin-top: 1rem;
+    }
+
+    .column-1-2,
+    .column-2-1,
+    .column-3-2,
+    .column-4-1,
+    .column-5-2 {
+        display: flex;
+        margin-right: 0;
+    }
+
+    .frame-img {
+        display: none;
+    }
+
+    .column-5-1 img {
+        position: relative;
+    }
+
+    .column-5-1 {
+        text-align: center;
+        margin-right: 0;
+    }
+
+    .breakline-img {
+        display: inline-block;
+        height: 15px;
+        width: 300px;
+    }
+
+    .header-3 p {
+        margin-left: 0;
+        margin: .5rem;
+    }
+
+    .column-3-1 {
+        margin-right: 0;
+    }
+
+    .df {
+        margin-top: 1rem;
+    }
+
+    .header-4 img {
+        width: 100px;
+    }
+
+    .column-7-2 img {
+        margin-top: 1rem;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .header-1 p,
+    .header-2 p,
+    .header-3 p,
+    .header-4 p,
+    .header-5 p,
+    .header-6 p,
+    .header-7 p {
+        font-size: 2rem;
+    }
+
+    .header-2 p {
+        margin-right: .8rem;
+    }
+
+    .frame-img {
+        display: inline-block;
+        width: 430px;
+    }
+
+    .breakline-img {
+        display: none;
+    }
+
+    .header-3 p {
+        margin-left: 1rem;
+    }
+
+    .column-3-1 {
+        margin-right: 2rem;
+    }
+
+    .header-1 p {
+        margin-right: .5rem;
+    }
+
+    .content-1 {
+        margin-top: 4rem;
+    }
+
+    .column-7-1 p {
+        max-width: 350px;
+        margin-right: 3rem;
+    }
+
+    .row-7 {
+        margin-top: 2.5rem;
+    }
+}
+
+@media only screen and (max-width: 840px) {
+    .left-element,
+    .right-element {
+        display: none;
+    }
+}
+
